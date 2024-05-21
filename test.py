@@ -17,4 +17,5 @@ chart_data2 = pd.DataFrame(
 
 st.line_chart(chart_data2, x="col1", y="col2", color="col3")
 
-# para iniciar o código, digite no terminal: streamlit run test.py
+# para iniciar o código, digite no terminal: 'streamlit run test.py'
+# para ver exemplos padrões do streamlit, digite no terminal: 'streamlit hello'
