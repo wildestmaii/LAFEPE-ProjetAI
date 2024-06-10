@@ -3,6 +3,11 @@
 import streamlit as st
 import pandas as pd
 
+with open('style.css') as f:
+    css = f.read()
+
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+
 #st.title("Controle de Insumos")
 st.markdown("<h1 style='text-align: center; color: #fff;'>Controle de Insumos</h1>", unsafe_allow_html=True)
 dfGlobal = pd.read_csv("/workspaces/LAFEPE-ProjetAI/data/consolidacaoestoque.csv")  # read a CSV file
@@ -24,6 +29,7 @@ dfGlobal = pd.read_csv("/workspaces/LAFEPE-ProjetAI/data/consolidacaoestoque.csv
 
 menu = ['Global', 'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ',]
 choice = st.sidebar.selectbox("Menu", menu)
+
 
 # --- FIM SIDEBAR 
 
