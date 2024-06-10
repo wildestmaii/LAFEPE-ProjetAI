@@ -2,13 +2,15 @@
 #h) Sinalização dos insumos mais próximos do vencimento.
 import streamlit as st
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+
+with open('style.css') as f:
+    css = f.read()
+
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 #st.title("Controle de Insumos")
 st.markdown("<h1 style='text-align: center; color: #fff;'>Controle de Insumos</h1>", unsafe_allow_html=True)
-dfGlobal = pd.read_csv("/workspaces/LAFEPE-ProjetAI/data/consolidacao_estoque.csv")  # read a CSV file inside the 'data" folder next to 'app.py'
+dfGlobal = pd.read_csv("/workspaces/LAFEPE-ProjetAI/data/consolidacaoestoque.csv")  # read a CSV file
 
 
 # --- SIDEBAR
@@ -34,8 +36,6 @@ choice = st.sidebar.selectbox("Menu", menu)
 
 
 # --- BODY
-#dfGlobal = pd.read_csv("D:/Programação/#_Python/a/dados/consolidacaoestoque.csv")  # read a CSV file inside the 'data" folder next to 'app.py'
-
 
 # RENOMEAR
 #rename_colunas = {
@@ -258,15 +258,6 @@ df_Dez = dfGlobal.drop(columns=limpeza_DEZ)
 
 
 
-# Gráfico
-# def sobraFaltaMai(bf):
-#    ganho = bf
-    
-
-
-
-#colunas_para_excluir = ['UtilizarJUL', 'Sobra/FaltaJUL', 'UtilizarAGO', 'Sobra/FaltaAGO', 'UtilizarSET', 'Sobra/FaltaSET', 'UtilizarOUT', 'Sobra/FaltaOUT', 'UtilizarNOV', 'Sobra/FaltaNOV', 'UtilizarDEZ', 'Sobra/FaltaDEZ']
-
 # Excluir as colunas
 def main():
     if choice == 'Global':
@@ -293,36 +284,6 @@ def main():
     if choice == 'MAI':
         st.write('## Maio')
         st.dataframe(df_Mai, height=700)
-
-        
-        # Converter a coluna para valores numéricos
-        df_Mai['Sobra/FaltaMAI'] = pd.to_numeric(df_Mai['Sobra/FaltaMAI'], errors='coerce')
-
-        # Filtrar os dados com base nas condições
-        zero_values = df_Mai[df_Mai['Sobra/FaltaMAI'] == 0]
-        negative_values = df_Mai[df_Mai['Sobra/FaltaMAI'] < 0]
-        positive_values = df_Mai[df_Mai['Sobra/FaltaMAI'] > 0]
-
-        # Contagem dos valores
-        counts = {
-            'Zero': len(zero_values),
-            'Negative': len(negative_values),
-            'Positive': len(positive_values)
-        }
-
-        # Criar o gráfico
-        fig, ax = plt.subplots()
-        categories = list(counts.keys())
-        values = list(counts.values())
-
-        sns.barplot(x=categories, y=values, ax=ax)
-        ax.set_title('Distribuição dos Valores de Sobra/FaltaMAI')
-        ax.set_xlabel('Categoria')
-        ax.set_ylabel('Contagem')
-
-        # Exibir o gráfico no Streamlit
-        st.pyplot(fig)
-
     
     if choice == 'JUN':
         st.write('## Junho')
@@ -352,8 +313,6 @@ def main():
         st.write('## Dezembro')
         st.dataframe(df_Dez, height=700)
 
-    #df_PrimeiroSemestre = dfGlobal.drop(columns=colunas_para_excluir)
-    #st.dataframe(df_PrimeiroSemestre)
 # -- FIM BODY
 
 
