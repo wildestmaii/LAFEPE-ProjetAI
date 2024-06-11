@@ -23,13 +23,14 @@ st.set_page_config(
 # ------------------------------------ HEADER -----------------------------------
 st.markdown("<h1 style='text-align: center; color: #fff;'>Controle de Insumos</h1>", unsafe_allow_html=True)
 
-url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACTHPCYFJX2WHP6W5X4GYAHQZTIIU2A"
+url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACTHPCYF336KFDQBXL6ZCMEKZTIOOJA"
+
 
 # ---------------------------------- FIM HEADER -----------------------------------
 
 
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ SIDEBAR ///////////////////////////////////
-menu = ['Global', 'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ',]
+menu = ['Global', 'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ', 'FEV05', 'MAR05']
 choice = st.sidebar.selectbox("Selecione o mês que deseja visualizar:", menu)
 
 query = st.sidebar.text_input(
@@ -65,7 +66,7 @@ def main():
     if choice == 'JAN':
         st.write('## Janeiro')
         #st.line_chart(st.dataframe(df_Jan))
-        callmes("JAN", url)
+        callmes("JAN04", url)
 
     if choice == 'FEV':
         st.write('## Fevereiro')
@@ -110,7 +111,15 @@ def main():
     if choice == 'DEZ':
         st.write('## Dezembro')
         callmes('DEZ', url)
-
+    
+    if choice == 'FEV05':
+        st.write('## Fevereiro 05')
+        callmes('FEV05', url)
+    
+    if choice == 'MAR05':
+        st.write('## Março 05')
+        callmes('MAR05', url)
+    
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx FIM BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 
 

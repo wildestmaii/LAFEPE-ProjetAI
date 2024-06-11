@@ -1,7 +1,9 @@
+#SE NAQUELE MÊS TEVE MAIS FALTAS OU SOBRA DE INSUMOS
+
 import streamlit as st        
 import matplotlib.pyplot as plt
 import pandas as pd
-#import seaborn as sns
+import seaborn as sns
 
 def callmes(mes, url):
     st.write(mes)
@@ -9,13 +11,15 @@ def callmes(mes, url):
     dfGlobal = pd.read_csv(url)
 
     # Correção: Definir escolha_MES como uma string, não uma lista
-    escolha_MES = 'Sobra/Falta' + mes
+    escolha_MES = 'Sobra/Falta'+mes
+    st.write(escolha_MES)
 
     # Selecionar a coluna específica e colocar em um DataFrame
     df_Mes = dfGlobal[[escolha_MES]].copy()
-
+    
     # Converter a coluna para valores numéricos
     df_Mes[escolha_MES] = pd.to_numeric(df_Mes[escolha_MES], errors='coerce')
+
 
     # Filtrar os dados com base nas condições
     negative_values = df_Mes[df_Mes[escolha_MES] < 0][escolha_MES]
@@ -29,18 +33,34 @@ def callmes(mes, url):
         'Positive': len(positive_values)
     }
 
-    # Criar o gráfico de linha
+
+
+    # Criar o gráfico
     fig, ax = plt.subplots()
     categories = list(counts.keys())
     values = list(counts.values())
 
-    ax.plot(categories, values, marker='o', linestyle='-', color='b')
+    sns.barplot(x=categories, y=values, ax=ax)
     ax.set_title('Distribuição dos Valores de Sobra/Falta ' + mes)
     ax.set_xlabel('Categoria')
     ax.set_ylabel('Contagem')
 
     # Exibir o gráfico no Streamlit
+    #fig.figure(figsize=(8, 4))
     st.pyplot(fig)
+
+    # Criar o gráfico de linha
+    #fig, ax = plt.subplots()
+    #categories = list(counts.keys())
+    #values = list(counts.values())
+
+    #ax.plot(categories, values, marker='o', linestyle='-', color='b')
+    #ax.set_title('Distribuição dos Valores de Sobra/Falta ' + mes)
+    #ax.set_xlabel('Categoria')
+    #ax.set_ylabel('Contagem')
+
+    # Exibir o gráfico no Streamlit
+    #st.pyplot(fig,)
 
 # Exemplo de chamada da função
 #callmes('FEV')

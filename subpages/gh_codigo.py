@@ -1,3 +1,5 @@
+#MOSTRA A PROGRESSAO DO INSUMO AO LONGO DOS MESES DE ACORDO COM O CODIGO DELE
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
