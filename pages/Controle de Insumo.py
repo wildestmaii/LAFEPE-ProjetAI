@@ -23,6 +23,7 @@ st.set_page_config(
 # ------------------------------------ HEADER -----------------------------------
 st.markdown("<h1 style='text-align: center; color: #fff;'>Controle de Insumos</h1>", unsafe_allow_html=True)
 
+url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACTHPCYFJX2WHP6W5X4GYAHQZTIIU2A"
 
 # ---------------------------------- FIM HEADER -----------------------------------
 
@@ -36,8 +37,7 @@ query = st.sidebar.text_input(
         placeholder="This is a placeholder",
     )
 if query:
-    
-    callcodigo(query)
+    callcodigo(query, url)
 
 
 
@@ -52,7 +52,10 @@ if query:
 def main():
     if choice == 'Global':
         st.write('## Global')
-        dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
+        #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
+        dfGlobal = pd.read_csv(url)
+        
+
         dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
         st.dataframe(dfGlobal, height=700, width=2000, use_container_width=False)
         #print(dfTest)
@@ -62,51 +65,51 @@ def main():
     if choice == 'JAN':
         st.write('## Janeiro')
         #st.line_chart(st.dataframe(df_Jan))
-        callmes("JAN")
+        callmes("JAN", url)
 
     if choice == 'FEV':
         st.write('## Fevereiro')
-        callmes('FEV')
+        callmes('FEV', url)
 
     if choice == 'MAR':
         st.write('## Março')
-        callmes('MAR')
+        callmes('MAR', url)
     
     if choice == 'ABR':
         st.write('## Abril')
-        callmes('ABR')
+        callmes('ABR', url)
     
     if choice == 'MAI':
         st.write('## Maio')
-        callmes('MAI')
+        callmes('MAI', url)
 
     if choice == 'JUN':
         st.write('## Junho')
-        callmes('JUN')
+        callmes('JUN', url)
     
     if choice == 'JUL':
         st.write('## Julho')
-        callmes('JUL')
+        callmes('JUL', url)
 
     if choice == 'AGO':
         st.write('## Agosto')
-        callmes('AGO')
+        callmes('AGO', url)
 
     if choice == 'SET':
         st.write('## Setembro')
-        callmes('SET')
+        callmes('SET', url)
 
     if choice == 'OUT':
         st.write('## Outubro')
-        callmes('OUT')
+        callmes('OUT', url)
 
     if choice == 'NOV':
         st.write('## Novembro')
-        callmes('NOV')
+        callmes('NOV', url)
 
     if choice == 'DEZ':
         st.write('## Dezembro')
-        callmes('DEZ')
+        callmes('DEZ', url)
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx FIM BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 
