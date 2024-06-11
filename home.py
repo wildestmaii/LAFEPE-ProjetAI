@@ -70,9 +70,9 @@ with st.expander("Dados Fornecidos", expanded=True):
 
 
 
-with st.expander("Guia de instalação", expanded=True):
+with st.expander("Instalação e Configuração", expanded=True):
    st.markdown("""<h4>Inicializando o projeto</h4>""", unsafe_allow_html=True)
-   st.write(":heavy_check_mark: Baixe o repositório em sua máquina")
+   st.write(":heavy_check_mark: [Baixe o repositório](https://github.com/wildestmaii/LAFEPE-ProjetA) em sua máquina.")
    st.image('src/imgs/print1.png', width=500)
 
    st.write(":heavy_check_mark: Após extrair o arquivo, abra a pasta com o VS Code ou uma IDE de sua preferência:")
@@ -87,10 +87,19 @@ with st.expander("Guia de instalação", expanded=True):
    st.code(code, language='python')
 
    st.write(":heavy_check_mark: E por fim, inicie o projeto:")
-   code = '''streamlit run [diretório do arquivo “index.py “do projeto]'''
+   code = '''streamlit run [diretório do arquivo "index.py" do projeto]'''
    st.code(code, language='python')
 
    st.write("Assim que o projeto for iniciado, o streamlit mostrará formas de acessar através de urls no terminal.")
+
+
+
+
+
+with st.expander("Estrutura do código", expanded=True):
+   st.markdown("""<h4>Estrutura do código</h4>""", unsafe_allow_html=True)
+   st.write("Estrutura do código.")
+
 
 
 
