@@ -1,12 +1,12 @@
 import streamlit as st        
 import matplotlib.pyplot as plt
 import pandas as pd
-import seaborn as sns
+#import seaborn as sns
 
 def callmes(mes):
     st.write(mes)
 
-    dfGlobal = pd.read_csv("D:/Programação/#_Python/a/dados/consolidacaoestoque.csv")
+    dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
 
     # Correção: Definir escolha_MES como uma string, não uma lista
     escolha_MES = 'Sobra/Falta' + mes

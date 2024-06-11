@@ -52,7 +52,7 @@ if query:
 def main():
     if choice == 'Global':
         st.write('## Global')
-        dfGlobal = pd.read_csv("D:/Programação/#_Python/a/dados/copiainsumo.csv")
+        dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
         dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
         st.dataframe(dfGlobal, height=700, width=2000, use_container_width=False)
         #print(dfTest)
@@ -78,49 +78,7 @@ def main():
     
     if choice == 'MAI':
         st.write('## Maio')
-        limpeza_MAI = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'UtilizarJUN', 'Sobra/FaltaJUN',
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-        df_Mai = dfGlobal.drop(columns=limpeza_MAI)
-        st.dataframe(df_Mai, height=700)
-     
-        # Converter a coluna para valores numéricos
-        df_Mai['Sobra/FaltaMAI'] = pd.to_numeric(df_Mai['Sobra/FaltaMAI'], errors='coerce')
-
-        # Filtrar os dados com base nas condições
-        negative_values = df_Mai[df_Mai['Sobra/FaltaMAI'] < 0]['Sobra/FaltaMAI']
-        zero_values = df_Mai[df_Mai['Sobra/FaltaMAI'] == 0]['Sobra/FaltaMAI']
-        positive_values = df_Mai[df_Mai['Sobra/FaltaMAI'] > 0]['Sobra/FaltaMAI']
-
-        # Contagem dos valores
-        counts = {'Zero': len(zero_values),
-                  'Negative': len(negative_values),
-                  'Positive': len(positive_values)}
-
-        # Criar o gráfico
-        fig, ax = plt.subplots()
-        categories = list(counts.keys())
-        values = list(counts.values())
-
-        sns.barplot(x=categories, y=values, ax=ax)
-        ax.set_title('Distribuição dos Valores de Sobra/FaltaMAI')
-        ax.set_xlabel('Categoria')
-        ax.set_ylabel('Contagem')
-
-        # Exibir o gráfico no Streamlit
-        st.pyplot(fig)
+        callmes('MAI')
 
     if choice == 'JUN':
         st.write('## Junho')

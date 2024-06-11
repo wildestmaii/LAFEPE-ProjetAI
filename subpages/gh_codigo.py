@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 def callcodigo(codigoMP):
-    st.write(codigoMP)
+    #st.write(codigoMP)
     # Carregar o dataset (ajuste o caminho conforme necessário)
-    dfGlobal = pd.read_csv("D:/Programação/#_Python/a/dados/copiainsumo.csv")
+    dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
     dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
 
     # Filtrar as colunas relevantes
