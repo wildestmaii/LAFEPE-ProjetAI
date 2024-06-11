@@ -3,6 +3,7 @@
 #g) Controle da validade dos insumos.
 #h) Sinalização dos insumos mais próximos do vencimento.
 
+# ********************************* LIBRARIES & CONFIG *********************************
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -18,15 +19,21 @@ st.set_page_config(
     page_icon= "src/imgs/logo ventures.png",
     layout='wide'
 )
+# ******************************** FIM LIBRARIES & CONFIG ******************************
+
+
 
 
 # ------------------------------------ HEADER -----------------------------------
 st.markdown("<h1 style='text-align: center; color: #fff;'>Controle de Insumos</h1>", unsafe_allow_html=True)
 
-url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACTHPCYF336KFDQBXL6ZCMEKZTIOOJA"
+url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACTHPCYFBABXV3G4BQXDFQV2ZTIU2IA"
 
+clearScreen = st.empty()
 
 # ---------------------------------- FIM HEADER -----------------------------------
+
+
 
 
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ SIDEBAR ///////////////////////////////////
@@ -38,87 +45,81 @@ query = st.sidebar.text_input(
         placeholder="This is a placeholder",
     )
 if query:
-    callcodigo(query, url)
-
-
-
-#if query:
-#    mask = dfGlobal.applymap(lambda x: query in str(x).lower()).any(axis=1)
-#    df = dfGlobal[mask]
+    callcodigo(query, url, clearScreen)
 
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ FIM SIDEBAR //////////////////////////////// 
 
+
+
+
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
-# Excluir as colunas
+# Fucntion Main
 def main():
+
+    #Switch Case - Filter Choice
     if choice == 'Global':
         st.write('## Global')
         #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
         dfGlobal = pd.read_csv(url)
-        
-
         dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
-        st.dataframe(dfGlobal, height=700, width=2000, use_container_width=False)
-        #print(dfTest)
-        #st.dataframe(dfTest)
-        #print(dfGlobal['Código MP'])
+        clearScreen.dataframe(dfGlobal, height=700, width=2000, use_container_width=False)
 
     if choice == 'JAN':
         st.write('## Janeiro')
         #st.line_chart(st.dataframe(df_Jan))
-        callmes("JAN04", url)
+        callmes("JAN04", url, clearScreen)
 
     if choice == 'FEV':
         st.write('## Fevereiro')
-        callmes('FEV', url)
+        callmes('FEV', url, clearScreen)
 
     if choice == 'MAR':
         st.write('## Março')
-        callmes('MAR', url)
+        callmes('MAR', url, clearScreen)
     
     if choice == 'ABR':
         st.write('## Abril')
-        callmes('ABR', url)
+        callmes('ABR', url, clearScreen)
     
     if choice == 'MAI':
         st.write('## Maio')
-        callmes('MAI', url)
+        callmes('MAI', url, clearScreen)
 
     if choice == 'JUN':
         st.write('## Junho')
-        callmes('JUN', url)
+        callmes('JUN', url, clearScreen)
     
     if choice == 'JUL':
         st.write('## Julho')
-        callmes('JUL', url)
+        callmes('JUL', url, clearScreen)
 
     if choice == 'AGO':
         st.write('## Agosto')
-        callmes('AGO', url)
+        callmes('AGO', url, clearScreen)
 
     if choice == 'SET':
         st.write('## Setembro')
-        callmes('SET', url)
+        callmes('SET', url, clearScreen)
 
     if choice == 'OUT':
         st.write('## Outubro')
-        callmes('OUT', url)
+        callmes('OUT', url, clearScreen)
 
     if choice == 'NOV':
         st.write('## Novembro')
-        callmes('NOV', url)
+        callmes('NOV', url, clearScreen)
 
     if choice == 'DEZ':
         st.write('## Dezembro')
-        callmes('DEZ', url)
+        callmes('DEZ', url, clearScreen)
     
     if choice == 'FEV05':
         st.write('## Fevereiro 05')
-        callmes('FEV05', url)
+        callmes('FEV05', url, clearScreen)
     
     if choice == 'MAR05':
         st.write('## Março 05')
-        callmes('MAR05', url)
+        callmes('MAR05', url, clearScreen)
     
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx FIM BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 

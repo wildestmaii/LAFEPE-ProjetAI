@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-def callmes(mes, url):
-    st.write(mes)
+def callmes(mes, url, clearScreen):
+    clearScreen.write(mes)
 
     dfGlobal = pd.read_csv(url)
 
