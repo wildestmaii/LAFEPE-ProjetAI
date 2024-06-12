@@ -1,319 +1,133 @@
+#a) Índices de perdas e/ou rendimento dos lotes.
+#b) Custo (R$) das perdas.
 #g) Controle da validade dos insumos.
 #h) Sinalização dos insumos mais próximos do vencimento.
+
+# ********************************* LIBRARIES & CONFIG *********************************
 import streamlit as st
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+#import plotly.figure_factory as ff
 
-with open('style.css') as f:
+from subpages.gh_mes import callmes
+from subpages.gh_codigo import callcodigo
+
+st.set_page_config(
+    page_title = "Home",
+    page_icon= "src/imgs/logo ventures.png",
+    layout='wide'
+)
+# ******************************** FIM LIBRARIES & CONFIG ******************************
+
+with open('src/style.css') as f:
     css = f.read()
 
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-#st.title("Controle de Insumos")
-st.markdown("<h1 style='text-align: center; color: #fff;'>Controle de Insumos</h1>", unsafe_allow_html=True)
-dfGlobal = pd.read_csv("/workspaces/LAFEPE-ProjetAI/data/consolidacaoestoque.csv")  # read a CSV file
 
 
-# --- SIDEBAR
-#if (dfGlobal is not None):
-    #bank = dfGlobal.copy()
+# ------------------------------------ HEADER -----------------------------------
+st.markdown("<h1 style='text-align: center'>Controle de Insumos</h1>", unsafe_allow_html=True)
 
-    #with st.sidebar.form(key='my_form'):
+url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACSP5N722DI3D3KYEQI2PYTQZTJBM4A"
 
-        # SELECIONA O TIPO DE GRÁFICO
-        #graph_type = st.radio('Tipo de gráfico:', ('Barras', 'Pizza'))
-        
-        # MÊS 
-        #month_list = bank.month.unique().tolist()
-        #month_list.append('')
-        #month_selected =  st.multiselect("Mês do contato", month_list, [''])
+clearScreen = st.empty()
 
-menu = ['Global', 'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ',]
-choice = st.sidebar.selectbox("Menu", menu)
-
-
-# --- FIM SIDEBAR 
-
-
-
-# --- BODY
-
-# RENOMEAR
-#rename_colunas = {
-#    'Código MP': 'Cod',
-#    'Estoque': 'Estoque',
-#    'UND': 'Und',
-#    'Quarentena': 'Quarentena',
-#    'Validade ¹': 'Validade',
-#    'A UtilizarFev': 'UtilzarFEv',
-#    'A UtilizarMAI': 'UtilizarMAI'
-#}
-
-# Aplicando a renomeação das colunas
-#dfGlobal = dfGlobal.rename(columns=rename_colunas)
-
-
-# LIMPEZA 
-limpeza_JAN = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN',
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Jan = dfGlobal.drop(columns=limpeza_JAN)
-
-limpeza_FEV = ['UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN',
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Fev = dfGlobal.drop(columns=limpeza_FEV)
-
-limpeza_MAR = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN',
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Mar = dfGlobal.drop(columns=limpeza_MAR)
-
-limpeza_ABR = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN',
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Abr = dfGlobal.drop(columns=limpeza_ABR)
-
-limpeza_MAI = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'UtilizarJUN', 'Sobra/FaltaJUN',
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Mai = dfGlobal.drop(columns=limpeza_MAI)
-
-limpeza_JUN = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Jun = dfGlobal.drop(columns=limpeza_JUN)
-
-limpeza_JUL = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Jul = dfGlobal.drop(columns=limpeza_JUL)
-
-limpeza_AGO = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN', 
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Ago = dfGlobal.drop(columns=limpeza_AGO)
-
-limpeza_SET = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN', 
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Set = dfGlobal.drop(columns=limpeza_SET)
-
-limpeza_OUT = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN', 
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Out = dfGlobal.drop(columns=limpeza_OUT)
-
-limpeza_NOV = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN', 
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO', 
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarDEZ', 'Sobra/FaltaDEZ',
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Nov = dfGlobal.drop(columns=limpeza_NOV)
-
-limpeza_DEZ = ['A UtilizarFEV', 'Sobra/FaltaFEV',
-               'UtilizarMAR', 'Sobra/FaltaMAR',
-               'UtilizarABR', 'Sobra/FaltaABR',
-               'A UtilizarMAI', 'Sobra/FaltaMAI',
-               'UtilizarJUN', 'Sobra/FaltaJUN', 
-               'UtilizarJUL', 'Sobra/FaltaJUL', 
-               'UtilizarAGO', 'Sobra/FaltaAGO',
-               'UtilizarSET', 'Sobra/FaltaSET', 
-               'UtilizarOUT', 'Sobra/FaltaOUT', 
-               'UtilizarNOV', 'Sobra/FaltaNOV', 
-               'UtilizarJAN04', 'Sobra/FaltaJAN04',
-               'UtilizarFEV05', 'Sobra/FaltaFEV05',
-               'UtilizarMAR05', 'Sobra/FaltaMAR05',
-               'SimulacaoUtilizar', 'SimulacaoSobra/Falta',
-               'UND', 'Validade ¹']
-df_Dez = dfGlobal.drop(columns=limpeza_DEZ)
+# ---------------------------------- FIM HEADER -----------------------------------
 
 
 
 
-# Excluir as colunas
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ SIDEBAR ///////////////////////////////////
+menu = ['Global', 'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ', 'FEV05', 'MAR05']
+choice = st.sidebar.selectbox("Selecione o mês que deseja visualizar:", menu)
+
+query = st.sidebar.text_input(
+        "Entre com o Código do Insumo especifico:",
+        placeholder="This is a placeholder",
+    )
+
+# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ FIM SIDEBAR //////////////////////////////// 
+
+
+
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+# Fucntion Main
 def main():
-    if choice == 'Global':
-        st.write('## Global')
-        st.dataframe(dfGlobal, height=700, width=1000, use_container_width=False)
-
-    if choice == 'JAN':
-        st.write('## Janeiro')
-        #st.line_chart(st.dataframe(df_Jan))
-        st.dataframe(df_Jan, height=700)
-
-    if choice == 'FEV':
-        st.write('## Fevereiro')
-        st.dataframe(df_Fev, height=700)
-
-    if choice == 'MAR':
-        st.write('## Março')
-        st.dataframe(df_Mar, height=700)
+    if query:
+        clearScreen.write('query')
+        callcodigo(query, url, clearScreen)
     
-    if choice == 'ABR':
-        st.write('## Abril')
-        st.dataframe(df_Abr, height=700)
+    else:
+        #Switch Case - Filter Choice
+        if choice == 'Global':
+            #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
+            dfGlobal = pd.read_csv(url)
+            dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
+            clearScreen.write('### Dados Gerais')
+            st.dataframe(dfGlobal, height=700, width=2000, use_container_width=False)
+
+        if choice == 'JAN':
+            st.write('## Janeiro')
+            #st.line_chart(st.dataframe(df_Jan))
+            callmes("JAN04", url, clearScreen)
+
+        if choice == 'FEV':
+            st.write('## Fevereiro')
+            callmes('FEV', url, clearScreen)
+
+        if choice == 'MAR':
+            st.write('## Março')
+            callmes('MAR', url, clearScreen)
+        
+        if choice == 'ABR':
+            st.write('## Abril')
+            callmes('ABR', url, clearScreen)
+        
+        if choice == 'MAI':
+            st.write('## Maio')
+            callmes('MAI', url, clearScreen)
+
+        if choice == 'JUN':
+            st.write('## Junho')
+            callmes('JUN', url, clearScreen)
+        
+        if choice == 'JUL':
+            st.write('## Julho')
+            callmes('JUL', url, clearScreen)
+
+        if choice == 'AGO':
+            st.write('## Agosto')
+            callmes('AGO', url, clearScreen)
+
+        if choice == 'SET':
+            st.write('## Setembro')
+            callmes('SET', url, clearScreen)
+
+        if choice == 'OUT':
+            st.write('## Outubro')
+            callmes('OUT', url, clearScreen)
+
+        if choice == 'NOV':
+            st.write('## Novembro')
+            callmes('NOV', url, clearScreen)
+
+        if choice == 'DEZ':
+            st.write('## Dezembro')
+            callmes('DEZ', url, clearScreen)
+        
+        if choice == 'FEV05':
+            st.write('## Fevereiro 05')
+            callmes('FEV05', url, clearScreen)
+        
+        if choice == 'MAR05':
+            st.write('## Março 05')
+            callmes('MAR05', url, clearScreen)
     
-    if choice == 'MAI':
-        st.write('## Maio')
-        st.dataframe(df_Mai, height=700)
-    
-    if choice == 'JUN':
-        st.write('## Junho')
-        st.dataframe(df_Jun, height=700)
-    
-    if choice == 'JUL':
-        st.write('## Julho')
-        st.dataframe(df_Jul, height=700)
-
-    if choice == 'AGO':
-        st.write('## Agosto')
-        st.dataframe(df_Ago, height=700)
-
-    if choice == 'SET':
-        st.write('## Setembro')
-        st.dataframe(df_Set, height=700)
-
-    if choice == 'OUT':
-        st.write('## Outubro')
-        st.dataframe(df_Out, height=700)
-
-    if choice == 'NOV':
-        st.write('## Novembro')
-        st.dataframe(df_Nov, height=700)
-
-    if choice == 'DEZ':
-        st.write('## Dezembro')
-        st.dataframe(df_Dez, height=700)
-
-# -- FIM BODY
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx FIM BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 
 
 

@@ -1,0 +1,65 @@
+.st-emotion-cache-12fmjuu {
+  background-color: #fff;
+}
+.st-emotion-cache-1jicfl2 {
+  background-color: #fff;
+}
+
+.st-emotion-cache-6qob1r {
+  background-color: #fff;
+  border-right: 2px solid #8602f3;
+  box-shadow: 5px 0 13px -5px rgba(0, 0, 0, 0.1);
+}
+
+.st-emotion-cache-18l0hbk:active,
+.st-emotion-cache-18l0hbk:visited,
+.st-emotion-cache-18l0hbk:hover {
+  background-color: #8602f3;
+}
+.st-emotion-cache-nziaof {
+  background-color: #8602f3 !important;
+}
+.st-emotion-cache-pkbazv {
+  color: white !important;
+}
+.st-emotion-cache-18l0hbk:hover span {
+  color: white !important;
+}
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #8602f3;
+  display: block;
+}
+.st-emotion-cache-j6qv4b p {
+  color: black;
+  font-size: 16px;
+}
+
+.st-emotion-cache-1jmvea6 p {
+  font-size: 16px;
+}
+.descricao {
+  text-align: justify;
+}
+.titulo_custos {
+  margin-bottom: 20px;
+  color: rgb(140, 136, 136);
+  font-size: 22px;
+}
+.st-emotion-cache-165ax5l thead tr {
+  background-color: #8602f3;
+}
+.st-emotion-cache-165ax5l thead tr th {
+  color: #fff;
+  border: 0.5px solid #fff;
+  text-align: center !important;
+}
+
+.st-emotion-cache-165ax5l tbody tr th + td {
+  color: #8602f3;
+  font-weight: 600;
+}
+.st-emotion-cache-165ax5l tbody tr td {
+  text-align: center !important;
+}
