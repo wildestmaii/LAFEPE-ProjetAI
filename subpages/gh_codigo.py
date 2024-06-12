@@ -48,10 +48,15 @@ def callcodigo(codigoMP, url, clearScreen):
     plt.xlabel('Meses', fontsize=16)
     plt.ylabel('Quantidade', fontsize=16)
     plt.title(f'Sobra ou Falta de Produtos por Mês para código {codigoMP}', fontsize=16)
-    plt.grid(True)
+    plt.grid(True,  axis='y', color='#DCDCDC', linewidth=0.3)
+
     plt.xticks(rotation=45)
 
-    
+    ax = plt.gca()  # Obter o objeto Axes atual
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
     # Exibir os dados filtrados no Streamlit
     dfCd = df_Codigo[escolha_colunas]
     #clearScreen.dataframe(dfCd, use_container_width=True)

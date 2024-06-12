@@ -42,9 +42,16 @@ def callmes(mes, url, clearScreen):
     ax.set_title('Distribuição dos Valores de Sobra/Falta ' + mes, fontsize=6)
     ax.set_xlabel('Categoria', fontsize=6)
     ax.set_ylabel('Contagem', fontsize=6)
-    ax.tick_params(axis='x', labelsize=5)  # Tamanho das labels dos ticks do eixo X
-    ax.tick_params(axis='y', labelsize=5) 
-    ax.grid(True, color='#FDFCFC',  linewidth=0.4)
+    ax.tick_params(axis='x', labelsize=5, color='#DCDCDC', length=5)  # Tamanho das labels dos ticks do eixo X
+    ax.tick_params(axis='y', labelsize=5, color='#DCDCDC', length=5) 
+    ax.grid(True, axis='y', color='#DCDCDC', linewidth=0.3)
+
+
+    ax = plt.gca()  # Obter o objeto Axes atual
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
     # Exibir o gráfico no Streamlit
     st.pyplot(fig)
 
