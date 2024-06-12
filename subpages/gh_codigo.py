@@ -4,8 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 
-def callcodigo(codigoMP, url):
-    #st.write(codigoMP)
+def callcodigo(codigoMP, url, clearScreen):
+
     # Carregar o dataset (ajuste o caminho conforme necessário)
     #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
     dfGlobal = pd.read_csv(url)
@@ -25,7 +25,7 @@ def callcodigo(codigoMP, url):
     
     # Verificar se o codigoMP foi encontrado
     if df_Codigo.empty:
-        st.write(f'Código {codigoMP} não encontrado.')
+        clearScreen.write(f'Código {codigoMP} não encontrado.')
         return
     
     # Selecionar os valores individuais para visualização
@@ -54,7 +54,7 @@ def callcodigo(codigoMP, url):
     
     # Exibir os dados filtrados no Streamlit
     dfCd = df_Codigo[escolha_colunas]
-    st.dataframe(dfCd, use_container_width=True)
+    clearScreen.dataframe(dfCd, use_container_width=True)
     # Exibir o gráfico no Streamlit
     st.pyplot(plt)
 

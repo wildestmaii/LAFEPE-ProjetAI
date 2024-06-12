@@ -27,7 +27,7 @@ st.set_page_config(
 # ------------------------------------ HEADER -----------------------------------
 st.markdown("<h1 style='text-align: center; color: #fff;'>Controle de Insumos</h1>", unsafe_allow_html=True)
 
-url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACTHPCYFBABXV3G4BQXDFQV2ZTIU2IA"
+url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACSP5N734DZFXNFZV3MBBL2OZTI7TMQ"
 
 clearScreen = st.empty()
 
@@ -44,8 +44,6 @@ query = st.sidebar.text_input(
         "Entre com o Código do Insumo especifico:",
         placeholder="This is a placeholder",
     )
-if query:
-    callcodigo(query, url, clearScreen)
 
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ FIM SIDEBAR //////////////////////////////// 
 
@@ -55,71 +53,75 @@ if query:
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 # Fucntion Main
 def main():
-
-    #Switch Case - Filter Choice
-    if choice == 'Global':
-        st.write('## Global')
-        #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
-        dfGlobal = pd.read_csv(url)
-        dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
-        clearScreen.dataframe(dfGlobal, height=700, width=2000, use_container_width=False)
-
-    if choice == 'JAN':
-        st.write('## Janeiro')
-        #st.line_chart(st.dataframe(df_Jan))
-        callmes("JAN04", url, clearScreen)
-
-    if choice == 'FEV':
-        st.write('## Fevereiro')
-        callmes('FEV', url, clearScreen)
-
-    if choice == 'MAR':
-        st.write('## Março')
-        callmes('MAR', url, clearScreen)
+    if query:
+        clearScreen.write('query')
+        callcodigo(query, url, clearScreen)
     
-    if choice == 'ABR':
-        st.write('## Abril')
-        callmes('ABR', url, clearScreen)
-    
-    if choice == 'MAI':
-        st.write('## Maio')
-        callmes('MAI', url, clearScreen)
+    else:
+        #Switch Case - Filter Choice
+        if choice == 'Global':
+            #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
+            dfGlobal = pd.read_csv(url)
+            dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
+            clearScreen.write('## Global')
+            st.dataframe(dfGlobal, height=700, width=2000, use_container_width=False)
 
-    if choice == 'JUN':
-        st.write('## Junho')
-        callmes('JUN', url, clearScreen)
-    
-    if choice == 'JUL':
-        st.write('## Julho')
-        callmes('JUL', url, clearScreen)
+        if choice == 'JAN':
+            st.write('## Janeiro')
+            #st.line_chart(st.dataframe(df_Jan))
+            callmes("JAN04", url, clearScreen)
 
-    if choice == 'AGO':
-        st.write('## Agosto')
-        callmes('AGO', url, clearScreen)
+        if choice == 'FEV':
+            st.write('## Fevereiro')
+            callmes('FEV', url, clearScreen)
 
-    if choice == 'SET':
-        st.write('## Setembro')
-        callmes('SET', url, clearScreen)
+        if choice == 'MAR':
+            st.write('## Março')
+            callmes('MAR', url, clearScreen)
+        
+        if choice == 'ABR':
+            st.write('## Abril')
+            callmes('ABR', url, clearScreen)
+        
+        if choice == 'MAI':
+            st.write('## Maio')
+            callmes('MAI', url, clearScreen)
 
-    if choice == 'OUT':
-        st.write('## Outubro')
-        callmes('OUT', url, clearScreen)
+        if choice == 'JUN':
+            st.write('## Junho')
+            callmes('JUN', url, clearScreen)
+        
+        if choice == 'JUL':
+            st.write('## Julho')
+            callmes('JUL', url, clearScreen)
 
-    if choice == 'NOV':
-        st.write('## Novembro')
-        callmes('NOV', url, clearScreen)
+        if choice == 'AGO':
+            st.write('## Agosto')
+            callmes('AGO', url, clearScreen)
 
-    if choice == 'DEZ':
-        st.write('## Dezembro')
-        callmes('DEZ', url, clearScreen)
-    
-    if choice == 'FEV05':
-        st.write('## Fevereiro 05')
-        callmes('FEV05', url, clearScreen)
-    
-    if choice == 'MAR05':
-        st.write('## Março 05')
-        callmes('MAR05', url, clearScreen)
+        if choice == 'SET':
+            st.write('## Setembro')
+            callmes('SET', url, clearScreen)
+
+        if choice == 'OUT':
+            st.write('## Outubro')
+            callmes('OUT', url, clearScreen)
+
+        if choice == 'NOV':
+            st.write('## Novembro')
+            callmes('NOV', url, clearScreen)
+
+        if choice == 'DEZ':
+            st.write('## Dezembro')
+            callmes('DEZ', url, clearScreen)
+        
+        if choice == 'FEV05':
+            st.write('## Fevereiro 05')
+            callmes('FEV05', url, clearScreen)
+        
+        if choice == 'MAR05':
+            st.write('## Março 05')
+            callmes('MAR05', url, clearScreen)
     
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx FIM BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 
