@@ -17,52 +17,32 @@ col1, col2, col3 = st.columns(3)
 with col2: 
    st.image('src/imgs/ventures.png', width=300)
 
-
 col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
 with col2:
    st.markdown("""<h1>Controle de Perdas e Validade</h1>""", unsafe_allow_html=True)
 
 
-st.header("Descrição do projeto")
 
-st.markdown("""O principal problema do fabricante de medicamentos é a gestão do controle de estoque e
- movimentação de produtos, que apresenta falhas. As principais consequências disso são a falta de gestão
-  sobre quantidade, distribuição para processo fabril de medicamentos, vencimento e necessidade de aquisição.
-Foram passados <b>20 indicadores</b> diferentes entre os quais deveríamos escolher no mínimo três para trabalhar,
- e os indicadores escolhidos para o nosso projeto foram os seguintes:
+with st.expander("Descrição do Projeto", expanded=True):
+   st.header("• Problema")
 
-- <b>Índices de perdas e/ou rendimento dos lotes;</b>
-- <b>Custo (R$) das perdas;</b>
-- <b>Controle da validade dos insumos;</b>
-- <b>Sinalização dos insumos mais próximos do vencimento;</b>
+   st.markdown("""O principal problema do fabricante de medicamentos é a gestão do controle de estoque e
+   movimentação de produtos, que apresenta falhas. As principais consequências disso são a falta de gestão
+   sobre quantidade, distribuição para processo fabril de medicamentos, vencimento e necessidade de aquisição.
+   Foram passados <b>20 indicadores</b> diferentes entre os quais deveríamos escolher no mínimo três para trabalhar,
+   e os indicadores escolhidos para o nosso projeto foram os seguintes:
 
-Por preferência do fabricante de medicamentos, utilizamos dashboards para realizar este acompanhamento dos indicadores.""",unsafe_allow_html=True )
-st.divider()
+   - <b>Índices de perdas e/ou rendimento dos lotes;</b>
+   - <b>Custo (R$) das perdas;</b>
+   - <b>Controle da validade dos insumos;</b>
+   - <b>Sinalização dos insumos mais próximos do vencimento;</b>
 
+   Por preferência do fabricante de medicamentos, utilizamos dashboards para realizar este acompanhamento dos indicadores.""",unsafe_allow_html=True )
 
-st.header("Páginas Principais")
-col1, col2 = st.columns(2)
-with col1:
-   st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True)
-   st.page_link("pages/Controle de Insumo.py", label="Controle de Insumo", use_container_width=True)
-   st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True )
-   st.markdown("""<p class="descricao"> Nesta página, oferecemos uma <i>análise gráfica</i> que permite a 
-   <i>seleção</i> específica de elementos e o controle detalhado do estoque desses insumos.
-   <br/>Além disso, é possível <i>visualizar</i> um balanceamento abrangente de todos os insumos utilizados, 
-   mostrando claramente as <b>sobras</b> ou <b>faltas</b> em um determinado mês, conforme desejado.</p>""",unsafe_allow_html=True)
-
-with col2: 
-   st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True)
-   st.page_link("pages/validade.py", label="Validade", use_container_width=True)
-   st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True )
-   st.markdown("""<p class="descricao"> Através de filtros, é possível visualizar o <i>vencimento estimado</i> selecionando o mês e o ano. Também é possível visualizar gráficos com <i>análises de status</i> em uma visão geral, ou por lotes. """,unsafe_allow_html=True)
-
-
-st.divider()
 
 
 with st.expander("Dados Fornecidos", expanded=True):
-   st.markdown("""<h4>Tabelas antes da visualização dos dados em dashboards</h4>""", unsafe_allow_html=True)
+   st.markdown("""<h4>Tabelas Utilizadas</h4>""", unsafe_allow_html=True)
    st.markdown("""<p class="descricao">O fabricante de medicamentos forneceu uma extensa base de dados extraída de 
    seu banco de dados com 24 tabelas interdependentes. A primeira etapa do trabalho foi análizar esses dados para que 
    fosse possível separar apenas o que nos era relevante e em seguida foi feita uma limpeza nas tabelas selecionadas 
@@ -100,6 +80,26 @@ with st.expander("Dados Fornecidos", expanded=True):
       st.image("src/imgs/tabela consolidacao.png",)
 
 
+      
+with st.expander("Páginas", expanded=True):
+   st.header("Páginas Principais")
+   col1, col2 = st.columns(2)
+   with col1:
+      st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True)
+      st.page_link("pages/Controle de Insumo.py", label="Controle de Insumo", use_container_width=True)
+      st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True )
+      st.markdown("""<p class="descricao"> Nesta página, oferecemos uma <i>análise gráfica</i> que permite a 
+      <i>seleção</i> específica de elementos e o controle detalhado do estoque desses insumos.
+      <br/>Além disso, é possível <i>visualizar</i> um balanceamento abrangente de todos os insumos utilizados, 
+      mostrando claramente as <b>sobras</b> ou <b>faltas</b> em um determinado mês, conforme desejado.</p>""",unsafe_allow_html=True)
+
+   with col2: 
+      st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True)
+      st.page_link("pages/validade.py", label="Validade", use_container_width=True)
+      st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True )
+      st.markdown("""<p class="descricao"> Através de filtros, é possível visualizar o <i>vencimento estimado</i> selecionando o mês e o ano. Também é possível visualizar gráficos com <i>análises de status</i> em uma visão geral, ou por lotes. """,unsafe_allow_html=True)
+
+
 
 with st.expander("Instalação e Configuração", expanded=True):
    st.markdown("""<h4>Inicializando o projeto</h4>""", unsafe_allow_html=True)
@@ -125,16 +125,12 @@ with st.expander("Instalação e Configuração", expanded=True):
 
 
 
-
-
 # with st.expander("Estrutura do código", expanded=True):
 #   st.markdown("""<h4>Estrutura do código</h4>""", unsafe_allow_html=True)
 #   st.write("Estrutura do código.")
 
 
 
-
-#apresentação dos membros da equipe
 with st.expander("Nossa equipe", expanded=True):
 
    col1, col2, col3, col4, col5, col6, col7 = st.columns(7, gap="medium")
@@ -164,6 +160,7 @@ with st.expander("Nossa equipe", expanded=True):
    with col7:
 
       st.image("src/imgs/everton.png", width=100, caption='Everton Gabriel')
+
 
 
 col1, col2, col3, = st.columns(3)
