@@ -5,6 +5,7 @@
   background-color: #fff;
 }
 
+/* sidebar */
 .st-emotion-cache-6qob1r {
   background-color: #fff;
   border-right: 2px solid #8602f3;
@@ -62,4 +63,9 @@
 }
 .st-emotion-cache-165ax5l tbody tr td {
   text-align: center !important;
+}
+
+/* borda dos inputs da tela controle de insumo */
+.st-aw {
+  border: 2px solid #b4b4b4;
 }

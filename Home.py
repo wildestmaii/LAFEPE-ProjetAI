@@ -54,19 +54,19 @@ with col2:
 st.divider()
 
 
-with st.expander("Dados Fornecidos", expanded=True):
-   st.markdown("""<h4>Tabelas antes da visualização dos dados em dashboards</h4>""", unsafe_allow_html=True)
-   col1, col2, col3 = st.columns(3)
+# with st.expander("Dados Fornecidos", expanded=True):
+#   st.markdown("""<h4>Tabelas antes da visualização dos dados em dashboards</h4>""", unsafe_allow_html=True)
+#   col1, col2, col3 = st.columns(3)
 
-   with col1:
-      st.write("Validade")
-      st.image("src/imgs/tabela validade.png",)
-   with col2:
-      st.write("Preço Custo")
-      st.image("src/imgs/tabela preco custo.png", )
-   with col3:
-      st.write("Consolidação estoque")
-      st.image("src/imgs/tabela consolidacao.png",)
+#   with col1:
+#      st.write("Validade")
+#      st.image("src/imgs/tabela validade.png",)
+#   with col2:
+#      st.write("Preço Custo")
+#      st.image("src/imgs/tabela preco custo.png", )
+#   with col3:
+#      st.write("Consolidação estoque")
+#      st.image("src/imgs/tabela consolidacao.png",)
  
 
 
@@ -97,9 +97,9 @@ with st.expander("Instalação e Configuração", expanded=True):
 
 
 
-with st.expander("Estrutura do código", expanded=True):
-   st.markdown("""<h4>Estrutura do código</h4>""", unsafe_allow_html=True)
-   st.write("Estrutura do código.")
+# with st.expander("Estrutura do código", expanded=True):
+#   st.markdown("""<h4>Estrutura do código</h4>""", unsafe_allow_html=True)
+#   st.write("Estrutura do código.")
 
 
 

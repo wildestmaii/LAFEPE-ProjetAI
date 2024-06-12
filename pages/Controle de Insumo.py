@@ -46,7 +46,7 @@ choice = st.sidebar.selectbox("Selecione o mês que deseja visualizar:", menu)
 
 query = st.sidebar.text_input(
         "Entre com o Código do Insumo especifico:",
-        placeholder="This is a placeholder",
+        placeholder="Ex: 2022",
     )
 
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ FIM SIDEBAR //////////////////////////////// 
