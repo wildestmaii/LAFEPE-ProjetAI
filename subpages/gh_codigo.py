@@ -44,17 +44,17 @@ def callcodigo(codigoMP, url, clearScreen):
     # Plotar gráfico de barras
     plt.figure(figsize=(20, 8))
     plt.bar(dfVisu['Mes'], dfVisu['Sobra_Falta'], color=['green' if x >= 0 else 'red' for x in dfVisu['Sobra_Falta']])
-    plt.axhline(0, color='black', linewidth=0.8)  # Linha no zero
-    plt.xlabel('Meses')
-    plt.ylabel('Quantidade')
-    plt.title(f'Sobra ou Falta de Produtos por Mês para código {codigoMP}')
+    plt.axhline(0, color='black', linewidth=0.8)  
+    plt.xlabel('Meses', fontsize=16)
+    plt.ylabel('Quantidade', fontsize=16)
+    plt.title(f'Sobra ou Falta de Produtos por Mês para código {codigoMP}', fontsize=16)
     plt.grid(True)
     plt.xticks(rotation=45)
 
     
     # Exibir os dados filtrados no Streamlit
     dfCd = df_Codigo[escolha_colunas]
-    clearScreen.dataframe(dfCd, use_container_width=True)
+    #clearScreen.dataframe(dfCd, use_container_width=True)
     # Exibir o gráfico no Streamlit
     st.pyplot(plt)
 

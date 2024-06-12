@@ -31,105 +31,95 @@ st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 # ------------------------------------ HEADER -----------------------------------
 st.markdown("<h1 style='text-align: center'>Controle de Insumos</h1>", unsafe_allow_html=True)
 
-url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACSP5N722DI3D3KYEQI2PYTQZTJBM4A"
+#dfGlobal = pd.read_csv("data/copiainsumo.csv")
+url = "data/copiainsumo.csv"
 
 clearScreen = st.empty()
 
 # ---------------------------------- FIM HEADER -----------------------------------
 
+#dados gerais do controle de insumos
+dfGlobal = pd.read_csv(url)
+dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
+clearScreen.write('### Dados Gerais')
+st.dataframe(dfGlobal)
+st.divider()
 
 
+col1, col2 = st.columns([0.4, 0.6])
+with col1:
 
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ SIDEBAR ///////////////////////////////////
-menu = ['Global', 'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ', 'FEV05', 'MAR05']
-choice = st.sidebar.selectbox("Selecione o mês que deseja visualizar:", menu)
-
-query = st.sidebar.text_input(
-        "Entre com o Código do Insumo especifico:",
-        placeholder="This is a placeholder",
-    )
-
-# \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ FIM SIDEBAR //////////////////////////////// 
-
-
-
-
-# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
-# Fucntion Main
-def main():
-    if query:
-        clearScreen.write('query')
-        callcodigo(query, url, clearScreen)
-    
-    else:
-        #Switch Case - Filter Choice
-        if choice == 'Global':
-            #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
-            dfGlobal = pd.read_csv(url)
-            dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
-            clearScreen.write('### Dados Gerais')
-            st.dataframe(dfGlobal, height=700, width=2000, use_container_width=False)
+    with st.container(border=True, height=570):
+        st.markdown("""<h4>Distribuição dos valores de sobra/falta</h4>""",unsafe_allow_html=True)
+        st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
+        menu = [ 'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ', 'FEV05', 'MAR05']
+        choice = st.selectbox("Selecione o mês que deseja visualizar:", menu)
 
         if choice == 'JAN':
-            st.write('## Janeiro')
-            #st.line_chart(st.dataframe(df_Jan))
+            st.markdown("""<h5 class="titulo_meses">Janeiro</h5>""",unsafe_allow_html=True)
             callmes("JAN04", url, clearScreen)
 
         if choice == 'FEV':
-            st.write('## Fevereiro')
+            st.markdown("""<h5 class="titulo_meses">Fevereiro</h5>""",unsafe_allow_html=True)
             callmes('FEV', url, clearScreen)
 
         if choice == 'MAR':
-            st.write('## Março')
+            st.markdown("""<h5 class="titulo_meses">Março</h5>""",unsafe_allow_html=True)
             callmes('MAR', url, clearScreen)
         
         if choice == 'ABR':
-            st.write('## Abril')
+            st.markdown("""<h5 class="titulo_meses">Abril</h5>""",unsafe_allow_html=True)
             callmes('ABR', url, clearScreen)
         
         if choice == 'MAI':
-            st.write('## Maio')
+            st.markdown("""<h5 class="titulo_meses">Maio</h5>""",unsafe_allow_html=True)
             callmes('MAI', url, clearScreen)
 
         if choice == 'JUN':
-            st.write('## Junho')
+            st.markdown("""<h5 class="titulo_meses">Junho</h5>""",unsafe_allow_html=True)
             callmes('JUN', url, clearScreen)
         
         if choice == 'JUL':
-            st.write('## Julho')
-            callmes('JUL', url, clearScreen)
+           st.markdown("""<h5 class="titulo_meses">Julho</h5>""",unsafe_allow_html=True)
+           callmes('JUL', url, clearScreen)
 
         if choice == 'AGO':
-            st.write('## Agosto')
+            st.markdown("""<h5 class="titulo_meses">Agosto</h5>""",unsafe_allow_html=True)
             callmes('AGO', url, clearScreen)
 
         if choice == 'SET':
-            st.write('## Setembro')
+            st.markdown("""<h5 class="titulo_meses">Setembro</h5>""",unsafe_allow_html=True)
             callmes('SET', url, clearScreen)
 
         if choice == 'OUT':
-            st.write('## Outubro')
+            st.markdown("""<h5 class="titulo_meses">Outubro</h5>""",unsafe_allow_html=True)
             callmes('OUT', url, clearScreen)
 
         if choice == 'NOV':
-            st.write('## Novembro')
+            st.markdown("""<h5 class="titulo_meses">Novembro</h5>""",unsafe_allow_html=True)
             callmes('NOV', url, clearScreen)
 
         if choice == 'DEZ':
-            st.write('## Dezembro')
+            st.markdown("""<h5 class="titulo_meses">Dezembro</h5>""",unsafe_allow_html=True)
             callmes('DEZ', url, clearScreen)
         
         if choice == 'FEV05':
-            st.write('## Fevereiro 05')
+            st.markdown("""<h5 class="titulo_meses">Fevereiro 05</h5>""",unsafe_allow_html=True)
             callmes('FEV05', url, clearScreen)
         
         if choice == 'MAR05':
-            st.write('## Março 05')
+            st.markdown("""<h5 class="titulo_meses">Março 05</h5>""",unsafe_allow_html=True)
             callmes('MAR05', url, clearScreen)
-    
-# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx FIM BODY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 
+with col2:
 
+    with st.container(border=True, height=570):
+        st.markdown("""<h4>Sobra ou Falta de produtos por mês para o código especifico</h4>""",unsafe_allow_html=True)
+        st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
+        query = st.text_input(
+                "Entre com o Código do Insumo especifico:",
+                placeholder="This is a placeholder")
+        if query:
+          #clearScreen.write('query')
+          callcodigo(query, url, clearScreen)
 
-if __name__ == '__main__':
-    main()
