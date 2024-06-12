@@ -114,6 +114,8 @@ def filter(optionMes, optionLote, optionAno):
 
         st.table(dfMesLote4)
 
+st.markdown("<h1 style='text-align: center'>Validade</h1>", unsafe_allow_html=True)
+
 st.markdown(""" <h3> Filtro de validade por ano e mês </h3>""", unsafe_allow_html=True)
 
 col1, col2 = st.columns([0.3, 0.6])
@@ -204,16 +206,16 @@ with col2:
     st.bar_chart(
     dfTop3, x="Código", y=["Custo Unit.", "Custo Unit." ], color=["#8602f3", "#8602f3"] 
     )
- 
 
 
-st.dataframe(df, use_container_width=True) # TODO remover essa visualização depois
+with st.expander("Visualização geral", expanded=True):
+    st.dataframe(df, use_container_width=True) # TODO remover essa visualização depois
 
 # preparação do dataframe
-df_lote1 = df[['Código MP', 'UND', 'Lote 01', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status']]
-df_lote2 = df[['Código MP', 'UND', 'Lote 02', 'Quantidade2', 'Custo Unit.2', 'Validade2', 'Prev. de Consumo2', 'Status']]
-df_lote3 = df[['Código MP', 'UND', 'Lote 03', 'Quantidade3', 'Custo Unit3', 'Validade3', 'Prev. de Consumo3', 'Status']]
-df_lote4 = df[['Código MP', 'UND', 'Lote 04', 'Quantidade4', 'Custo Unit4', 'Validade4', 'Prev. de Consumo4', 'Status']]
+df_lote1 = df[['Código MP', 'UND', 'Lote 01', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status 01']]
+df_lote2 = df[['Código MP', 'UND', 'Lote 02', 'Quantidade2', 'Custo Unit.2', 'Validade2', 'Prev. de Consumo2', 'Status 02']]
+df_lote3 = df[['Código MP', 'UND', 'Lote 03', 'Quantidade3', 'Custo Unit3', 'Validade3', 'Prev. de Consumo3', 'Status 03']]
+df_lote4 = df[['Código MP', 'UND', 'Lote 04', 'Quantidade4', 'Custo Unit4', 'Validade4', 'Prev. de Consumo4', 'Status 04']]
 
 # renomeando colunas para visualização
 df_lote1.columns = ['Código MP', 'UND', 'Lote', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status']
@@ -223,3 +225,33 @@ df_lote4.columns = ['Código MP', 'UND', 'Lote', 'Quantidade', 'Custo Unit.', 'V
 
 
 st.markdown(""" <h4> Análise do status de consumo </h4>""", unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown(""" <h5> Análise geral </h5>""", unsafe_allow_html=True)
+    # Extrair e combinar colunas de status dos lotes
+    status_columns = ['Status 01', 'Status 02', 'Status 03', 'Status 04']
+    statuses = df[status_columns].stack().reset_index(drop=True)
+
+    # Contar a soma de cada status
+    status_counts = statuses.value_counts()
+
+    # Criar o gráfico de pizza
+    fig, ax = plt.subplots()
+    ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')  # Assegura que o gráfico é desenhado como um círculo
+    st.pyplot(fig)
+
+with col2:
+    st.markdown(""" <h5> Análise do lote 01 </h5>""", unsafe_allow_html=True)
+    status_counts = df_lote1['Status'].value_counts()
+    # Criar gráfico de pizza
+    fig, ax = plt.subplots()
+    ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')
+    st.pyplot(fig)
+
+
+st.markdown(""" <h4> Análise do consumo e desperdício dos insumos  </h4>""", unsafe_allow_html=True)
+st.markdown("""<p class="descricao"> O comparativo entre as colunas <i>'Validade', 'Previsão de consumo' e 'Status'</i> permite a visualização da porcentagem de insumos consumidos vs desperdiçados. </p>""",unsafe_allow_html=True)
+
