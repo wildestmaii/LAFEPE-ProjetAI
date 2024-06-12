@@ -42,17 +42,18 @@ def callcodigo(codigoMP, url, clearScreen):
     dfVisu['Sobra_Falta'] = pd.to_numeric(dfVisu['Sobra_Falta'], errors='coerce')
 
     # Plotar gráfico de barras
-    plt.figure(figsize=(20, 8))
-    plt.bar(dfVisu['Mes'], dfVisu['Sobra_Falta'], color=['green' if x >= 0 else 'red' for x in dfVisu['Sobra_Falta']])
-    plt.axhline(0, color='black', linewidth=0.8)  
-    plt.xlabel('Meses', fontsize=16)
-    plt.ylabel('Quantidade', fontsize=16)
-    plt.title(f'Sobra ou Falta de Produtos por Mês para código {codigoMP}', fontsize=16)
-    plt.grid(True,  axis='y', color='#DCDCDC', linewidth=0.3)
-
+    plt.figure(figsize=(20, 8.5))
+    plt.bar(dfVisu['Mes'], dfVisu['Sobra_Falta'], color=['green' if x >= 0 else 'red' for x in dfVisu['Sobra_Falta']], zorder=4)
+    plt.axhline(0, color='black', linewidth=0.8, zorder=4)  
+    ax = plt.gca() 
+    plt.ylabel('Quantidade', fontsize=16, color='#9B9DAB')
+    plt.title(f'Código {codigoMP}', fontsize=16, color='#9B9DAB')
+    plt.grid(True,  axis='y', color='#9B9DAB', linewidth=0.3, zorder=0)
+    ax.tick_params(axis='x', labelsize=15, colors='#9B9DAB')  
+    ax.tick_params(axis='y', labelsize=15, colors='#9B9DAB' )
     plt.xticks(rotation=45)
 
-    ax = plt.gca()  # Obter o objeto Axes atual
+   
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
