@@ -25,8 +25,11 @@ with col2:
 
 st.header("Descrição do projeto")
 
-st.markdown("""O principal problema do fabricante de medicamentos é a gestão do controle de estoque e movimentação de produtos, que apresenta falhas. As principais consequências disso são a falta de gestão sobre quantidade, distribuição para processo fabril de medicamentos, vencimento e necessidade de aquisição.
-Foram passados <b>20 indicadores</b> diferentes entre os quais deveríamos escolher no mínimo três para trabalhar, e os indicadores escolhidos para o nosso projeto foram os seguintes:
+st.markdown("""O principal problema do fabricante de medicamentos é a gestão do controle de estoque e
+ movimentação de produtos, que apresenta falhas. As principais consequências disso são a falta de gestão
+  sobre quantidade, distribuição para processo fabril de medicamentos, vencimento e necessidade de aquisição.
+Foram passados <b>20 indicadores</b> diferentes entre os quais deveríamos escolher no mínimo três para trabalhar,
+ e os indicadores escolhidos para o nosso projeto foram os seguintes:
 
 - <b>Índices de perdas e/ou rendimento dos lotes;</b>
 - <b>Custo (R$) das perdas;</b>
@@ -43,31 +46,57 @@ with col1:
    st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True)
    st.page_link("pages/Controle de Insumo.py", label="Controle de Insumo", use_container_width=True)
    st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True )
-   st.markdown("""<p class="descricao"> Na página de controle de insumos, oferecemos uma <b>análise gráfica</b> que permite a <i>seleção</i> específica de elementos e o controle detalhado do estoque desses insumos. Além disso, é possível <i>visualizar</i> um balanceamento abrangente de todos os insumos utilizados, mostrando claramente as <i>sobras</i> ou <i>faltas</i> em um determinado mês, conforme desejado.</p>""",unsafe_allow_html=True)
+   st.markdown("""<p class="descricao"> Nesta página, oferecemos uma <i>análise gráfica</i> que permite a 
+   <i>seleção</i> específica de elementos e o controle detalhado do estoque desses insumos.
+   <br/>Além disso, é possível <i>visualizar</i> um balanceamento abrangente de todos os insumos utilizados, 
+   mostrando claramente as <b>sobras</b> ou <b>faltas</b> em um determinado mês, conforme desejado.</p>""",unsafe_allow_html=True)
 
 with col2: 
    st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True)
-   indice = st.page_link("pages/Indices de Perdas.py", label="Indice de Perdas", use_container_width=True)
+   indice = st.page_link("pages/Indices de Perdas.py", label="Indices de Perdas", use_container_width=True)
    st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True)
    st.markdown("""<p>exemplo de texto</p>""",unsafe_allow_html=True)
 
 st.divider()
 
 
-# with st.expander("Dados Fornecidos", expanded=True):
-#   st.markdown("""<h4>Tabelas antes da visualização dos dados em dashboards</h4>""", unsafe_allow_html=True)
-#   col1, col2, col3 = st.columns(3)
+with st.expander("Dados Fornecidos", expanded=True):
+   st.markdown("""<h4>Tabelas antes da visualização dos dados em dashboards</h4>""", unsafe_allow_html=True)
+   st.markdown("""<p class="descricao">O fabricante de medicamentos forneceu uma extensa base de dados extraída de 
+   seu banco de dados com 24 tabelas interdependentes. A primeira etapa do trabalho foi análizar esses dados para que 
+   fosse possível separar apenas o que nos era relevante e em seguida foi feita uma limpeza nas tabelas selecionadas 
+   para que pudésse-mos trabalhar com elas.
+   <br/>Na tabela Validade, o dataset original tratava de mais de 27 lotes de 
+   remédios e decidimos pegar apenas os 4 primeiros lotes, onde havia uma recorrência maior de dados nesses lotes. 
+   Nos lotes a partir do 5 ao 27 havia apenas 1 ou 2 registros por lotes, às vezes, ficava todo o lote sem 
+   registros de dados, com milhares de valores nulos que não agregavam em nada. A partir dessa seleção de lotes, 
+   tivemos que tratar os valores nulos sem precisar ter a necessidade de excluir as linhas. Em cada coluna como, 
+   número do lote, Quantidade, custo por unidade, previsão do consumo e status, foram feitos tratamentos diferentes 
+   dos valores nulos, pois teriam que corresponder com os valores referentes aquelas colunas.
+   <br/>Na tabela de Preço Custo, não realizamos alterações, pois já estava 
+   conforme nossa necessidade.
+   <br/>Quanto à Consolidação, o período abrangido foi de 1 ano e 1 mês, sem redução de colunas. O tratamento 
+   dos dados seguiu o mesmo padrão adotado na tabela de validade.</p>""",unsafe_allow_html=True)
+   col1, col2, col3 = st.columns(3)
 
-#   with col1:
-#      st.write("Validade")
-#      st.image("src/imgs/tabela validade.png",)
-#   with col2:
-#      st.write("Preço Custo")
-#      st.image("src/imgs/tabela preco custo.png", )
-#   with col3:
-#      st.write("Consolidação estoque")
-#      st.image("src/imgs/tabela consolidacao.png",)
- 
+   with col1:
+      st.write("Tabela Validade antes do tratamento:")
+      st.image("src/imgs/validadeNedit.png",)
+
+      st.write("Tabela Validade depois do Tratamento:")
+      st.image("src/imgs/tabela validade.png",)
+   with col2:
+      st.write("Tabela Preço Custo antes do tratamento:")
+      st.image("src/imgs/precocustoNedit.png", )
+
+      st.write("Tabela Preço Custo depois do tratamento:")
+      st.image("src/imgs/tabela preco custo.png", )
+   with col3:
+      st.write("Tabela Consolidação antes do tratamento:")
+      st.image("src/imgs/consolidacaoNedit.png",)
+
+      st.write("Tabela Consolidação depois do tratamento:")
+      st.image("src/imgs/tabela consolidacao.png",)
 
 
 
@@ -88,7 +117,7 @@ with st.expander("Instalação e Configuração", expanded=True):
    st.code(code, language='python')
 
    st.write(":heavy_check_mark: E por fim, inicie o projeto:")
-   code = '''streamlit run [diretório do arquivo "index.py" do projeto]'''
+   code = '''streamlit run [caminho do arquivo "index.py"]'''
    st.code(code, language='python')
 
    st.write("Assim que o projeto for iniciado, o streamlit mostrará formas de acessar através de urls no terminal.")

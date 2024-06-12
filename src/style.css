@@ -69,3 +69,7 @@
 .st-aw {
   border: 2px solid #b4b4b4;
 }
+/* para tirar a linha embaixo dos link */
+a {
+  text-decoration: none;
+}
