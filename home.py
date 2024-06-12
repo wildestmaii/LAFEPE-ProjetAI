@@ -7,7 +7,7 @@ st.set_page_config(
     layout='wide'
 )
 
-with open('style.css') as f:
+with open('src/style.css') as f:
     css = f.read()
 
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
@@ -15,7 +15,7 @@ st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 #alinhando a imagem
 col1, col2, col3 = st.columns(3)
 with col2: 
-   st.image('ventures.png', width=300)
+   st.image('src/imgs/ventures.png', width=300)
 
 
 col1, col2, col3 = st.columns([0.2, 0.6, 0.2])

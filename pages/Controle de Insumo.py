@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.figure_factory as ff
+#import plotly.figure_factory as ff
 
 from subpages.gh_mes import callmes
 from subpages.gh_codigo import callcodigo
@@ -21,13 +21,17 @@ st.set_page_config(
 )
 # ******************************** FIM LIBRARIES & CONFIG ******************************
 
+with open('src/style.css') as f:
+    css = f.read()
+
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 
 
 # ------------------------------------ HEADER -----------------------------------
-st.markdown("<h1 style='text-align: center; color: #fff;'>Controle de Insumos</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center'>Controle de Insumos</h1>", unsafe_allow_html=True)
 
-url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACSP5N734DZFXNFZV3MBBL2OZTI7TMQ"
+url = "https://raw.githubusercontent.com/wildestmaii/LAFEPE-ProjetAI/raralaraloralisa/data/copiainsumo.csv?token=GHSAT0AAAAAACSP5N722DI3D3KYEQI2PYTQZTJBM4A"
 
 clearScreen = st.empty()
 
@@ -63,7 +67,7 @@ def main():
             #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
             dfGlobal = pd.read_csv(url)
             dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
-            clearScreen.write('## Global')
+            clearScreen.write('### Dados Gerais')
             st.dataframe(dfGlobal, height=700, width=2000, use_container_width=False)
 
         if choice == 'JAN':
