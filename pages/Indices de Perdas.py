@@ -1,5 +1,5 @@
 import streamlit as st
-print('oi')
+print('índice de perdas ok')
 with open('style.css') as f:
     css = f.read()
 

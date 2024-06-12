@@ -12,7 +12,7 @@ with open('style.css') as f:
 
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
-colunas = ["Código MP", "Lote 01", "Validade", "Lote 02", "Validade2", "Lote 03", "Validade3", "Lote 04", "Validade4"]
+colunas = ["Código MP", "UND", "Lote 01", "Quantidade", "Custo Unit.", "Validade", "Prev. de Consumo", "Status 01", "Lote 02", "Quantidade2", "Custo Unit.2", "Validade2", "Prev. de Consumo2", "Status 02", "Lote 03", "Quantidade3", "Custo Unit3", "Validade3", "Prev. de Consumo3", "Status 03", "Lote 04", "Quantidade4", "Custo Unit4", "Validade4", "Prev. de Consumo4", "Status 04", "ESTADO STATUS"]
 df = pd.read_csv("data/validade.csv", usecols=colunas)
 df = df.astype(str)
 
@@ -45,7 +45,7 @@ def filter(optionMes, optionAno, optionLote):
 
         # Extrair o número do mês do option
         mes_opcao = meses_dict[optionMes]
-        print("porra")
+        print("seleção de mês ok")
         
         # Filtrar o DataFrame para mostrar apenas as linhas onde o ano é igual ao ano selecionado
         dfMesLote1 = dfLote1[dfLote1['Validade'].str.split('/').str[1] == mes_opcao]
@@ -130,6 +130,24 @@ with col1:
 with col2:
     st.markdown(""" <h5>Tabela Filtrada</h5>""", unsafe_allow_html=True)
     filter(optionMes, optionLote, optionAno)
-    print("alo")
+    print("tabela filtrada ok")
 
 st.divider()
+
+
+st.dataframe(df, use_container_width=True) # TODO remover essa visualização depois
+
+# preparação do dataframe
+df_lote1 = df[['Código MP', 'UND', 'Lote 01', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status']]
+df_lote2 = df[['Código MP', 'UND', 'Lote 02', 'Quantidade2', 'Custo Unit.2', 'Validade2', 'Prev. de Consumo2', 'Status']]
+df_lote3 = df[['Código MP', 'UND', 'Lote 03', 'Quantidade3', 'Custo Unit3', 'Validade3', 'Prev. de Consumo3', 'Status']]
+df_lote4 = df[['Código MP', 'UND', 'Lote 04', 'Quantidade4', 'Custo Unit4', 'Validade4', 'Prev. de Consumo4', 'Status']]
+
+# renomeando colunas para visualização
+df_lote1.columns = ['Código MP', 'UND', 'Lote', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status']
+df_lote2.columns = ['Código MP', 'UND', 'Lote', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status']
+df_lote3.columns = ['Código MP', 'UND', 'Lote', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status']
+df_lote4.columns = ['Código MP', 'UND', 'Lote', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status']
+
+
+st.markdown(""" <h4> Análise do status de consumo </h4>""", unsafe_allow_html=True)
