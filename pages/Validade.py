@@ -15,12 +15,18 @@ with open('src/style.css') as f:
 
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
+clearScreen = st.empty()
+
 
 #Validade por ano e mês
 
 colunas = ["Código MP", "UND", "Lote 01", "Quantidade", "Custo Unit.", "Validade", "Prev. de Consumo", "Status 01", "Lote 02", "Quantidade2", "Custo Unit.2", "Validade2", "Prev. de Consumo2", "Status 02", "Lote 03", "Quantidade3", "Custo Unit3", "Validade3", "Prev. de Consumo3", "Status 03", "Lote 04", "Quantidade4", "Custo Unit4", "Validade4", "Prev. de Consumo4", "Status 04", "ESTADO STATUS"]
 df = pd.read_csv("data/validade.csv", usecols=colunas)
 df = df.astype(str)
+clearScreen.write('#### Dados Gerais')
+st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
+st.dataframe(df)
+st.divider()
 
 colunasLote1 = ["Código MP", "Lote 01", "Validade"]
 dfLote1 = pd.read_csv("data/validade.csv", usecols=colunasLote1)
@@ -114,7 +120,6 @@ def filter(optionMes, optionLote, optionAno):
 
         st.table(dfMesLote4)
 
-st.markdown("<h1 style='text-align: center'>Validade</h1>", unsafe_allow_html=True)
 
 st.markdown(""" <h3> Filtro de validade por ano e mês </h3>""", unsafe_allow_html=True)
 
@@ -208,9 +213,6 @@ with col2:
     )
 
 
-with st.expander("Visualização geral", expanded=True):
-    st.dataframe(df, use_container_width=True) # TODO remover essa visualização depois
-
 # preparação do dataframe
 df_lote1 = df[['Código MP', 'UND', 'Lote 01', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status 01']]
 df_lote2 = df[['Código MP', 'UND', 'Lote 02', 'Quantidade2', 'Custo Unit.2', 'Validade2', 'Prev. de Consumo2', 'Status 02']]
@@ -223,35 +225,93 @@ df_lote2.columns = ['Código MP', 'UND', 'Lote', 'Quantidade', 'Custo Unit.', 'V
 df_lote3.columns = ['Código MP', 'UND', 'Lote', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status']
 df_lote4.columns = ['Código MP', 'UND', 'Lote', 'Quantidade', 'Custo Unit.', 'Validade', 'Prev. de Consumo', 'Status']
 
+st.divider()
 
 st.markdown(""" <h4> Análise do status de consumo </h4>""", unsafe_allow_html=True)
-
-col1, col2 = st.columns(2)
-with col1:
-    st.markdown(""" <h5> Análise geral </h5>""", unsafe_allow_html=True)
-    # Extrair e combinar colunas de status dos lotes
-    status_columns = ['Status 01', 'Status 02', 'Status 03', 'Status 04']
-    statuses = df[status_columns].stack().reset_index(drop=True)
-
-    # Contar a soma de cada status
-    status_counts = statuses.value_counts()
-
-    # Criar o gráfico de pizza
-    fig, ax = plt.subplots()
-    ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')  # Assegura que o gráfico é desenhado como um círculo
-    st.pyplot(fig)
-
-with col2:
-    st.markdown(""" <h5> Análise do lote 01 </h5>""", unsafe_allow_html=True)
-    status_counts = df_lote1['Status'].value_counts()
-    # Criar gráfico de pizza
-    fig, ax = plt.subplots()
-    ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')
-    st.pyplot(fig)
+st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
+optionValidade = st.selectbox(
+    "Selecione a Visualização:",
+    ("Análise Geral", "Lote 01", "Lote 02", "Lote 03", "Lote 04"))
 
 
-st.markdown(""" <h4> Análise do consumo e desperdício dos insumos  </h4>""", unsafe_allow_html=True)
-st.markdown("""<p class="descricao"> O comparativo entre as colunas <i>'Validade', 'Previsão de consumo' e 'Status'</i> permite a visualização da porcentagem de insumos consumidos vs desperdiçados. </p>""",unsafe_allow_html=True)
+# Extrair e combinar colunas de status dos lotes
+status_columns = ['Status 01', 'Status 02', 'Status 03', 'Status 04']
+statuses = df[status_columns].stack().reset_index(drop=True)
+
+# Contar a soma de cada status
+status_counts = statuses.value_counts()
+
+def valFilter(optionValidade):
+
+    if optionValidade == "Análise Geral":
+        st.markdown(""" <h5> Análise Geral </h5>""", unsafe_allow_html=True)
+        status_columns = ['Status 01', 'Status 02', 'Status 03', 'Status 04']
+        statuses = df[status_columns].stack().reset_index(drop=True)
+        status_counts = statuses.value_counts()
+        fig, ax = plt.subplots(figsize=(8, 2))
+        colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
+        ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
+        ax.axis('equal')
+        st.pyplot(fig)
+    
+    elif optionValidade == "Lote 01":
+        st.markdown(""" <h5> Análise do lote 01 </h5>""", unsafe_allow_html=True)
+        status_counts = df_lote1['Status'].value_counts()
+        fig, ax = plt.subplots(figsize=(8, 2))
+        colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
+        ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
+        ax.axis('equal')
+        st.pyplot(fig)
+
+    elif optionValidade == "Lote 02":
+        st.markdown(""" <h5> Análise do lote 02 </h5>""", unsafe_allow_html=True)
+        status_counts = df_lote2['Status'].value_counts()
+        fig, ax = plt.subplots(figsize=(8, 2))
+        colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
+        ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
+        ax.axis('equal')
+        st.pyplot(fig)
+
+    elif optionValidade == "Lote 03":
+        st.markdown(""" <h5> Análise do lote 03 </h5>""", unsafe_allow_html=True)
+        status_counts = df_lote3['Status'].value_counts()
+        fig, ax = plt.subplots(figsize=(8, 2))
+        colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
+        ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
+        ax.axis('equal')
+        st.pyplot(fig)
+
+    elif optionValidade == "Lote 04":
+        st.markdown(""" <h5> Análise do lote 04 </h5>""", unsafe_allow_html=True)
+        status_counts = df_lote4['Status'].value_counts()
+        fig, ax = plt.subplots(figsize=(8, 2))
+        colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
+        ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
+        ax.axis('equal')
+        st.pyplot(fig)
+
+valFilter(optionValidade)
+
+
+# st.divider()
+
+# st.markdown(""" <h4> Análise do consumo e desperdício dos insumos  </h4>""", unsafe_allow_html=True)
+# st.markdown("""<p class="descricao"> O comparativo entre as colunas <i>'Validade', 'Previsão de consumo' e 'Status'</i> permite a visualização da porcentagem de insumos consumidos vs desperdiçados. </p>""",unsafe_allow_html=True)
+
+# colors = ['#8602f3']
+# st.bar_chart(df['Validade'].value_counts(), color=colors)
+
+# col1, col2 = st.columns([0.3, 0.6])
+# with col1: 
+#     optionPrevisao = st.selectbox(
+#     "Selecione a Visualização:",
+#     ("Análise Geral", "Lote 01", "Lote 02", "Lote 03", "Lote 04"))
+
+#     # Extrair e combinar colunas de status dos lotes
+#     status_columns = ['Status 01', 'Status 02', 'Status 03', 'Status 04']
+#     statuses = df[status_columns].stack().reset_index(drop=True)
+
+#     # Contar a soma de cada status
+#     status_counts = statuses.value_counts()
+#     st.bar_chart(df_lote1['Prev. de Consumo'].value_counts)
 

@@ -7,7 +7,7 @@ import streamlit as st
 def callcodigo(codigoMP, url, clearScreen):
 
     # Carregar o dataset (ajuste o caminho conforme necessário)
-    #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
+    #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/insumo.csv")
     dfGlobal = pd.read_csv(url)
     dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
 
@@ -42,19 +42,25 @@ def callcodigo(codigoMP, url, clearScreen):
     dfVisu['Sobra_Falta'] = pd.to_numeric(dfVisu['Sobra_Falta'], errors='coerce')
 
     # Plotar gráfico de barras
-    plt.figure(figsize=(20, 8))
-    plt.bar(dfVisu['Mes'], dfVisu['Sobra_Falta'], color=['green' if x >= 0 else 'red' for x in dfVisu['Sobra_Falta']])
-    plt.axhline(0, color='black', linewidth=0.8)  # Linha no zero
-    plt.xlabel('Meses')
-    plt.ylabel('Quantidade')
-    plt.title(f'Sobra ou Falta de Produtos por Mês para código {codigoMP}')
-    plt.grid(True)
+    plt.figure(figsize=(20, 8.5))
+    plt.bar(dfVisu['Mes'], dfVisu['Sobra_Falta'], color=['green' if x >= 0 else 'red' for x in dfVisu['Sobra_Falta']], zorder=4)
+    plt.axhline(0, color='black', linewidth=0.8, zorder=4)  
+    ax = plt.gca() 
+    plt.ylabel('Quantidade', fontsize=16, color='#9B9DAB')
+    plt.title(f'Código {codigoMP}', fontsize=16, color='#9B9DAB')
+    plt.grid(True,  axis='y', color='#9B9DAB', linewidth=0.3, zorder=0)
+    ax.tick_params(axis='x', labelsize=15, colors='#9B9DAB')  
+    ax.tick_params(axis='y', labelsize=15, colors='#9B9DAB' )
     plt.xticks(rotation=45)
 
-    
+   
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
     # Exibir os dados filtrados no Streamlit
     dfCd = df_Codigo[escolha_colunas]
-    clearScreen.dataframe(dfCd, use_container_width=True)
+    #clearScreen.dataframe(dfCd, use_container_width=True)
     # Exibir o gráfico no Streamlit
     st.pyplot(plt)
 
