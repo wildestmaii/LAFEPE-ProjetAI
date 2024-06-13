@@ -36,9 +36,8 @@ clearScreen = st.empty()
 #dados gerais do controle de insumos
 dfGlobal = pd.read_csv(url)
 dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
-clearScreen.write('### Dados Gerais')
 
-with st.expander(" ", expanded=True):
+with st.expander("Dados Gerais", expanded=False):
     st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
     st.dataframe(dfGlobal)
     st.divider()
@@ -116,7 +115,7 @@ with col2:
         st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
         query = st.text_input(
                 "Entre com o Código do Insumo especifico:",
-                placeholder="This is a placeholder")
+                placeholder="Ex: 2022")
         if query:
           #clearScreen.write('query')
           callcodigo(query, url, clearScreen)

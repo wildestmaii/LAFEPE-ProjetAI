@@ -23,9 +23,8 @@ clearScreen = st.empty()
 colunas = ["Código MP", "UND", "Lote 01", "Quantidade", "Custo Unit.", "Validade", "Prev. de Consumo", "Status 01", "Lote 02", "Quantidade2", "Custo Unit.2", "Validade2", "Prev. de Consumo2", "Status 02", "Lote 03", "Quantidade3", "Custo Unit3", "Validade3", "Prev. de Consumo3", "Status 03", "Lote 04", "Quantidade4", "Custo Unit4", "Validade4", "Prev. de Consumo4", "Status 04", "ESTADO STATUS"]
 df = pd.read_csv("data/validade.csv", usecols=colunas)
 df = df.astype(str)
-clearScreen.write('### Dados Gerais')
 
-with st.expander(" ", expanded=True):
+with st.expander("Dados Gerais", expanded=False):
     st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
     st.dataframe(df)
     st.divider()
