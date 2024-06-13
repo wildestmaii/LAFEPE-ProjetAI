@@ -37,8 +37,11 @@ clearScreen = st.empty()
 dfGlobal = pd.read_csv(url)
 dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
 clearScreen.write('### Dados Gerais')
-st.dataframe(dfGlobal)
-st.divider()
+
+with st.expander(" ", expanded=True):
+    st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
+    st.dataframe(dfGlobal)
+    st.divider()
 
 
 col1, col2 = st.columns([0.4, 0.6])

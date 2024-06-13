@@ -23,10 +23,12 @@ clearScreen = st.empty()
 colunas = ["Código MP", "UND", "Lote 01", "Quantidade", "Custo Unit.", "Validade", "Prev. de Consumo", "Status 01", "Lote 02", "Quantidade2", "Custo Unit.2", "Validade2", "Prev. de Consumo2", "Status 02", "Lote 03", "Quantidade3", "Custo Unit3", "Validade3", "Prev. de Consumo3", "Status 03", "Lote 04", "Quantidade4", "Custo Unit4", "Validade4", "Prev. de Consumo4", "Status 04", "ESTADO STATUS"]
 df = pd.read_csv("data/validade.csv", usecols=colunas)
 df = df.astype(str)
-clearScreen.write('#### Dados Gerais')
-st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
-st.dataframe(df)
-st.divider()
+clearScreen.write('### Dados Gerais')
+
+with st.expander(" ", expanded=True):
+    st.markdown("""<div class="divider2"></div>""",unsafe_allow_html=True)
+    st.dataframe(df)
+    st.divider()
 
 colunasLote1 = ["Código MP", "Lote 01", "Validade"]
 dfLote1 = pd.read_csv("data/validade.csv", usecols=colunasLote1)
@@ -248,7 +250,7 @@ def valFilter(optionValidade):
         status_columns = ['Status 01', 'Status 02', 'Status 03', 'Status 04']
         statuses = df[status_columns].stack().reset_index(drop=True)
         status_counts = statuses.value_counts()
-        fig, ax = plt.subplots(figsize=(8, 2))
+        fig, ax = plt.subplots(figsize=(8, 3))
         colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
         ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
         ax.axis('equal')
@@ -257,7 +259,7 @@ def valFilter(optionValidade):
     elif optionValidade == "Lote 01":
         st.markdown(""" <h5> Análise do lote 01 </h5>""", unsafe_allow_html=True)
         status_counts = df_lote1['Status'].value_counts()
-        fig, ax = plt.subplots(figsize=(8, 2))
+        fig, ax = plt.subplots(figsize=(8, 3))
         colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
         ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
         ax.axis('equal')
@@ -266,7 +268,7 @@ def valFilter(optionValidade):
     elif optionValidade == "Lote 02":
         st.markdown(""" <h5> Análise do lote 02 </h5>""", unsafe_allow_html=True)
         status_counts = df_lote2['Status'].value_counts()
-        fig, ax = plt.subplots(figsize=(8, 2))
+        fig, ax = plt.subplots(figsize=(8, 3))
         colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
         ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
         ax.axis('equal')
@@ -275,7 +277,7 @@ def valFilter(optionValidade):
     elif optionValidade == "Lote 03":
         st.markdown(""" <h5> Análise do lote 03 </h5>""", unsafe_allow_html=True)
         status_counts = df_lote3['Status'].value_counts()
-        fig, ax = plt.subplots(figsize=(8, 2))
+        fig, ax = plt.subplots(figsize=(8, 3))
         colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
         ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
         ax.axis('equal')
@@ -284,7 +286,7 @@ def valFilter(optionValidade):
     elif optionValidade == "Lote 04":
         st.markdown(""" <h5> Análise do lote 04 </h5>""", unsafe_allow_html=True)
         status_counts = df_lote4['Status'].value_counts()
-        fig, ax = plt.subplots(figsize=(8, 2))
+        fig, ax = plt.subplots(figsize=(8, 3))
         colors = ['#8602f3', '#b378f6', '#c69bf9', '#d7bdfb', '#e9dffe']
         ax.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=colors)
         ax.axis('equal')
