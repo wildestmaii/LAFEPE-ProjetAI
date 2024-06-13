@@ -27,11 +27,6 @@ with open('src/style.css') as f:
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 
-
-# ------------------------------------ HEADER -----------------------------------
-st.markdown("<h1 style='text-align: center'>Controle de Insumos</h1>", unsafe_allow_html=True)
-
-#dfGlobal = pd.read_csv("data/copiainsumo.csv")
 url = "data/copiainsumo.csv"
 
 clearScreen = st.empty()
