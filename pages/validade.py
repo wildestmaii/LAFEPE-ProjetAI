@@ -114,7 +114,6 @@ def filter(optionMes, optionLote, optionAno):
 
         st.table(dfMesLote4)
 
-st.markdown("<h1 style='text-align: center'>Validade</h1>", unsafe_allow_html=True)
 
 st.markdown(""" <h3> Filtro de validade por ano e mês </h3>""", unsafe_allow_html=True)
 

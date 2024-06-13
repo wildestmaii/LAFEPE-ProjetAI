@@ -98,9 +98,9 @@ with st.expander("Instalação e Configuração", expanded=True):
 
 
 
-with st.expander("Estrutura do código", expanded=True):
-   st.markdown("""<h4>Estrutura do código</h4>""", unsafe_allow_html=True)
-   st.write("Estrutura do código.")
+#with st.expander("Estrutura do código", expanded=True):
+   #st.markdown("""<h4>Estrutura do código</h4>""", unsafe_allow_html=True)
+   #st.write("Estrutura do código.")
 
 
 
