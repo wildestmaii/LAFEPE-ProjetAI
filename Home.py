@@ -47,9 +47,9 @@ with col1:
 
 with col2: 
    st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True)
-   st.page_link("pages/validade.py", label="Validade", use_container_width=True)
+   st.page_link("pages/Validade.py", label="Validade", use_container_width=True)
    st.markdown("""<div class="divider"></div>""",unsafe_allow_html=True )
-   st.markdown("""<p class="descricao"> Através de filtros, é possível visualizar o <i>vencimento estimado</i> selecionando o mês e o ano. Também é possível visualizar gráficos com <i>análises de status</i> em uma visão geral, ou por lotes. """,unsafe_allow_html=True)
+   st.markdown("""<p class="descricao"> Através de filtros, é possível visualizar o <i>vencimento estimado<i/> selecionando o mês e o ano, visualizar os <i>custos unitários dos insumos<i/> definindo o limite máximo do valor e também gráficos com <i>análises de status de consumo<i/> em uma visão geral, ou por lotes. """,unsafe_allow_html=True)
 
 
 st.divider()

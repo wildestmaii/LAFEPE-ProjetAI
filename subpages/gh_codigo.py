@@ -7,7 +7,7 @@ import streamlit as st
 def callcodigo(codigoMP, url, clearScreen):
 
     # Carregar o dataset (ajuste o caminho conforme necessário)
-    #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/copiainsumo.csv")
+    #dfGlobal = pd.read_csv("D:/Programação/VSCode/praticando/pythonCRUD/crudpython/LAFEPE-ProjetAI/data/insumo.csv")
     dfGlobal = pd.read_csv(url)
     dfGlobal['Código MP'] = dfGlobal['Código MP'].astype(str)
 
