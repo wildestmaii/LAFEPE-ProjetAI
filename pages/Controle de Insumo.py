@@ -27,7 +27,7 @@ with open('src/style.css') as f:
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 
-url = "data/copiainsumo.csv"
+url = "data/insumo.csv"
 
 clearScreen = st.empty()
 
